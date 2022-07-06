@@ -1,19 +1,11 @@
-interface List {
-  id: number
-  title: string
-  description?: string
-}
+import { db } from '~/utils/db.server'
 
-export async function getLists(): Promise<Array<List>> {
-  return [
-    {
-      id: 1,
-      title: "My Christmas Wishlist",
-      description: "This is my 2022 Christmas List"
-    },
-    {
-      id: 1,
-      title: "My Birthday Wishlist"
+export function getLists() {
+  return db.wishlist.findMany({ 
+    select: {
+      title: true,
+      description: true,
+      id: true
     }
-  ]
+  })
 }

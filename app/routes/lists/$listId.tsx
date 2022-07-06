@@ -1,5 +1,22 @@
+import type { LoaderFunction } from '@remix-run/node'
+import type { Wishlist } from '@prisma/client'
+
+import { json } from '@remix-run/node'
+import { useLoaderData } from '@remix-run/react'
+import invariant from 'tiny-invariant'
+
+import { db } from 'app/utils/db.server'
+
+export const loader: LoaderFunction = async ({ params }) => {
+  const data: Wishlist | null = await db.wishlist.findUnique({ where: { id: params.listId }})
+  return json(data)
+}
+
 export default function ListRoute() {
+  const list = useLoaderData<Wishlist | null>()
+  invariant(list, 'No list found')
+
   return (
-    <h1>My List</h1>
+    <h1>{list.title}</h1>
   )
 }
