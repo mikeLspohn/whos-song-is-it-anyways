@@ -1,4 +1,65 @@
-body, h1 {
+body {
   font-family: Helvetica, sans-serif;
 }
 
+body {
+  margin-top: 40px;
+}
+
+main {
+  margin: auto;
+}
+
+label {
+  font-weight: 800;
+}
+
+button {
+  background-color: #35d4ff;
+  border-radius: 8px;
+  box-shadow: none;
+  color: #fff;
+  border: none;
+  font-size: 1.2em;
+  outline: none;
+  padding: 6px;
+}
+
+button:hover {
+  background-color: #7be3ff;
+}
+
+@media only screen and (max-width: 900px) {
+  main {
+    width: 90%;
+  }
+
+  button {
+    width: 100%;
+    font-size: 1.4em;
+  }
+
+  input, label {
+    font-size: 1.2em;
+  }
+
+  label {
+    font-weight: 800px;
+  }
+
+  .input-box {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+  }
+  
+  .input-box label {
+    color: #666;
+    margin-bottom: 10px;
+  }
+  
+  .input-box input {
+    border-radius: 4px;
+    padding: 6px;
+  }
+}

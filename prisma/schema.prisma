@@ -17,3 +17,13 @@ model Wishlist {
   title       String
   description String
 }
+
+model ListEntry {
+  id String   @id @default(uuid())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  title       String
+  description String?
+  price       Float?
+  url         String?
+} 
