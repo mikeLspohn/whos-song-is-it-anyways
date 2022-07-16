@@ -2,7 +2,7 @@ import type { LoaderFunction } from '@remix-run/node'
 import type { Wishlist } from '@prisma/client'
 
 import { json } from '@remix-run/node'
-import { useLoaderData } from '@remix-run/react'
+import { Link, useLoaderData } from '@remix-run/react'
 import invariant from 'tiny-invariant'
 
 import { db } from 'app/utils/db.server'
@@ -17,6 +17,9 @@ export default function ListRoute() {
   invariant(list, 'No list found')
 
   return (
-    <h1>{list.title}</h1>
+    <>
+      <h1>{list.title}</h1>
+      <Link to='edit'><button>Edit</button></Link>
+    </>
   )
 }

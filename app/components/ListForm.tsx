@@ -3,7 +3,6 @@ import { json, redirect } from '@remix-run/node'
 import type { db } from '~/utils/db.server'
 
 type WishlistPayload = Prisma.WishlistCreateInput
-
 export interface ListFormActionData {
   formError?: string;
   fieldErrors?: {
@@ -78,6 +77,7 @@ export default function ListForm({ actionData, list }: Props) {
           type='text' 
           name='title'
           defaultValue={actionData?.fields?.title ?? list?.title}
+          aria-required
           aria-invalid={Boolean(actionData?.fieldErrors?.title) || undefined}
           aria-errormessage={
             actionData?.fieldErrors?.title

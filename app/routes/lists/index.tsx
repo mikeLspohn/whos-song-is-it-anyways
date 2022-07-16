@@ -2,7 +2,7 @@ import type { Prisma } from '@prisma/client'
 import type { LoaderFunction } from '@remix-run/node'
 
 import { json } from "@remix-run/node";
-import { Link, useLoaderData } from "@remix-run/react";
+import { Outlet, Link, useLoaderData } from "@remix-run/react";
 
 import { getLists } from '~/models/list.server'
 
@@ -22,12 +22,17 @@ export default function Lists() {
     <main>
       <h1>My Lists</h1>
 
-      {lists.map(list => (
-        <li key={list.id}>
-          <Link to={list.id}>{list.title}</Link>
-          <p>{list.description}</p>
-        </li>
-      ))}
+      <ul>
+        {lists.map(list => (
+          <li key={list.id}>
+            <div className='list-item'>
+              <Link className='list-title-link' to={list.id}>{list.title}</Link>
+              <p>{list.description}</p>
+            </div>
+          </li>
+        ))}
+      </ul>
+      <Outlet />
     </main>
   )
 }

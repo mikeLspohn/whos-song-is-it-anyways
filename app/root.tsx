@@ -27,7 +27,28 @@ export default function App() {
         <Links />
       </head>
       <body>
-        <Outlet />
+        <div className='main-flex-container'>
+          <div className='main-nav'>
+            <nav>
+              <ul>
+                <li>
+                  Home
+                </li>
+                <li>
+                  Wishlists
+                </li>
+                <li>
+                  Account Settings
+                </li>
+              </ul>
+            </nav>
+          </div>
+
+          <div className='main-content-grid-column'>
+            <Outlet />
+          </div>
+        </div>
+
         <ScrollRestoration />
         <Scripts />
         <LiveReload />

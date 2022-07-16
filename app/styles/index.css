@@ -1,14 +1,80 @@
-body {
-  font-family: Helvetica, sans-serif;
+body, div, nav, ul, li, a, p, h1 {
+  margin: 0;
+  padding: 0;
 }
 
 body {
-  margin-top: 40px;
+  font-family: Helvetica, sans-serif;
+  margin: 0 auto;
 }
 
 main {
-  margin: auto;
+  margin-left: 20px;
+  margin-top: 20px;
 }
+
+main h1 {
+  margin-bottom: 40px;
+}
+
+p {
+  padding: 0;
+  margin: 0;
+}
+
+a {
+  color: #35d4ff;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #7be3ff;
+  text-decoration: underline;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  list-style-type: none;
+}
+
+.main-flex-container {
+  display: grid;
+}
+
+.main-nav {
+  background-color: #35d4ff;
+  color: #fff;
+  font-size: 1.2em;
+  padding: 20px 20px;
+}
+
+.main-nav nav ul {
+  display: flex;
+}
+
+.main-nav li {
+  margin-bottom: 10px;
+  cursor: pointer;
+  display: inline-block;
+  margin-right: 30px;
+}
+
+.list-item {
+  margin-bottom: 40px;
+  display: inline-block;
+}
+
+.list-item a {
+  display: inline-block;
+  font-size: 1.2em;
+  margin-bottom: 10px;
+}
+
 
 label {
   font-weight: 800;
@@ -19,6 +85,7 @@ button {
   border-radius: 8px;
   box-shadow: none;
   color: #fff;
+  cursor: pointer;
   border: none;
   font-size: 1.2em;
   outline: none;
@@ -28,6 +95,35 @@ button {
 button:hover {
   background-color: #7be3ff;
 }
+
+@media only screen and (min-width: 800px) {
+  .main-flex-container {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-columns: 240px auto;
+    grid-auto-rows: minmax(100px, auto)
+  }
+  .main-content-grid-column {
+    grid-column: 2 / 7;
+  }
+  .main-nav {
+    background-color: #35d4ff;
+    color: #fff;
+    height: 100vh;
+    font-size: 1.2em;
+    padding: 20px 20px;
+    position: sticky;
+  }
+
+  .main-nav nav ul {
+    display: block;
+  }
+
+  .main-nav nav ul li {
+    display: block;
+  }
+}
+
 
 @media only screen and (max-width: 900px) {
   main {
