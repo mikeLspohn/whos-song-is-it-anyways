@@ -17,9 +17,13 @@ export default function ListRoute() {
   invariant(list, 'No list found')
 
   return (
-    <>
-      <h1>{list.title}</h1>
-      <Link to='edit'><button>Edit</button></Link>
-    </>
+    <main>
+      <div className='heading-container'>
+        <h1>{list.title}</h1>
+        <Link to='edit'>
+          <i className='fa fa-pencil' />
+        </Link>
+      </div>
+    </main>
   )
 }

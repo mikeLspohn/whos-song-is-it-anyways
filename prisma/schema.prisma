@@ -27,3 +27,25 @@ model ListEntry {
   price       Float?
   url         String?
 } 
+
+model Artist {
+  @@map("artists")
+
+  id Int      @id @default(autoincrement())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  name        String
+  songs       Song[]
+}
+
+model Song {
+  @@map("songs")
+
+  id Int      @id @default(autoincrement())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  name        String
+  lyrics      String
+  artist      Artist? @relation(fields: [artistId], references: [id])
+  artistId    Int?
+}

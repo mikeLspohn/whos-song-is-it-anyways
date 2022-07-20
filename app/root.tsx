@@ -25,9 +25,11 @@ export default function App() {
       <head>
         <Meta />
         <Links />
+        <script src="https://kit.fontawesome.com/4f53f8b0d1.js" crossOrigin="anonymous"></script>
       </head>
       <body>
-        <div className='main-flex-container'>
+        <div className=''>
+          {/*
           <div className='main-nav'>
             <nav>
               <ul>
@@ -43,8 +45,14 @@ export default function App() {
               </ul>
             </nav>
           </div>
+          */}
 
+    {/*}
           <div className='main-content-grid-column'>
+            <Outlet />
+          </div>
+      */}
+          <div className=''>
             <Outlet />
           </div>
         </div>
