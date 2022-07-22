@@ -40,8 +40,10 @@ export interface SpotifyTrackResponse {
 }
 
 export async function fetchApiToken(): Promise<any> {
-  const client_id = '336f869b73c04f328feee07510903fc1'
-  const client_secret = 'b3230ec115ce4490a7df93af1c06943f'
+  console.log(process.env.SPOTIFY_CLIENT_ID)
+  console.log(process.env.SPOTIFY_CLIENT_SECRET)
+  const client_id = process.env.SPOTIFY_CLIENT_ID
+  const client_secret = process.env.SPOTIFY_CLIENT_SECRET
 
   try {
     const response = await fetch(`https://accounts.spotify.com/api/token`, {
