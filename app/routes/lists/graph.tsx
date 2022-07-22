@@ -5,7 +5,7 @@ import { useLoaderData } from '@remix-run/react'
 import graphStylesURL from '~/styles/graph.css'
 import AnswersSection from '~/components/AnswersSection'
 import QuestionSection from '~/components/QuestionSection'
-import { fetchSong } from '~/services/spotify'
+import { fetchSong } from '~/services/spotify.server'
 
 export const links: LinksFunction = () => {
   return [{ rel: 'stylesheet', href: graphStylesURL }]

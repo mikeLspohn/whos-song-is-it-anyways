@@ -76,7 +76,7 @@ export default function NewSongRoute() {
 
             <p style={{marginBottom: '20px'}}>
               <label htmlFor='lyricsInput'>Lyrics:</label>
-              <input name='lyricsInput' type='text' defaultValue={track?.lyrics} />
+              <textarea name='lyricsInput' rows={4} defaultValue={track?.lyrics} />
             </p>
 
             <button name='formName' value='createSongEntry'>Create Song Entry</button>

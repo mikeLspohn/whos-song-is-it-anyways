@@ -1,6 +1,6 @@
-import type { SpotifyTrack, SpotifyTrackResponse } from '~/services/spotify'
-import { fetchSong } from '~/services/spotify'
-import { getLyricsForTrack } from '~/services/genius-lyrics'
+import type { SpotifyTrack, SpotifyTrackResponse } from '~/services/spotify.server'
+import { fetchSong } from '~/services/spotify.server'
+import { getLyricsForTrack } from '~/services/genius-lyrics.server'
 
 export type SpotifyTrackWithLyrics = SpotifyTrack & { lyrics: string }
 
