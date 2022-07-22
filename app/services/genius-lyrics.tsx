@@ -26,7 +26,6 @@ export async function fetchTrackPage(artistName: string, trackName: string): Pro
 
   try {
     const urlPath = `${normalizedArtistName}-${normalizedTrackName}-lyrics`
-    console.log(urlPath)
     const response = await fetch(`https://genius.com/${urlPath}`)
 
     if (!response.ok) {

@@ -1,4 +1,3 @@
-import type { Prisma } from '@prisma/client'
 import type { ActionFunction } from '@remix-run/node'
 import type { ListFormActionData } from '~/components/ListForm'
 import { Form, useActionData } from '@remix-run/react'

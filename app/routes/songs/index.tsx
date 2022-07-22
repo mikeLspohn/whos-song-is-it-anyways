@@ -1,50 +1,44 @@
-import type { Prisma } from '@prisma/client'
+import type { TrackWithArtist } from '~/models/track.server'
+import type { LoaderFunction } from '@remix-run/node'
 
-type SongWithArtist = Prisma.SongGetPayload<{
-  include: { artist: true }
-}>
+import { useState } from 'react'
+import { json } from '@remix-run/node'
+import { useLoaderData } from '@remix-run/react'
+import { db } from '~/utils/db.server'
 
-const songs: SongWithArtist[] = [
-  { 
-    id: 1, 
-    artist: {
-      id: 1,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-      name: 'Yellowcard'
-    },
-    artistId: 1,
-    createdAt: new Date(),
-    updatedAt: new Date(),
-    lyrics: "My Song lyrics",
-    name: 'My Song' 
-  }, 
-  { 
-    id: 2, 
-    artistId: 2,
-    artist: {
-      id: 1,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-      name: 'All Time Low'
-    },
-    createdAt: new Date(),
-    updatedAt: new Date(),
-    lyrics: "My other song",
-    name: 'Dear Maria, Count Me In' 
-  } 
-]
+export const loader: LoaderFunction = async () => {
+  const songs = await db.track.findMany({
+    include: {
+      artist: true
+    }
+  })
 
-export default function SongsRoute() {
+  return json(songs)
+}
+
+export default function Tracks() {
+  const tracks = useLoaderData<TrackWithArtist[]>()
   return (
     <main>
       <ul>
-        {songs.map(song => {
-          return (
-            <li key={song.id}>{song.name} - {song.artist?.name}</li>
-          )
-        })}
+        {tracks.map(track => 
+          <li style={{marginBottom: '40px'}} key={track.id}><Track track={track} /></li> 
+        )}
       </ul>
     </main>
+  )
+}
+
+function Track({ track }: { track: TrackWithArtist }) {
+  const [showLyrics, setShowLyrics] = useState(false)
+
+  return (
+    <>
+      <p>{track.name} - {track.artist?.name}</p>
+      <p style={{marginBottom: '20px'}} onClick={() => setShowLyrics(!showLyrics)}>
+        {showLyrics ? 'Hide Lyrics' : 'ShowLyrics'}
+      </p>
+      {showLyrics && <p dangerouslySetInnerHTML={{__html: track.lyrics}}/>}
+    </>
   )
 }

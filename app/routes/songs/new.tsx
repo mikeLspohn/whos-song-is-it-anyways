@@ -1,21 +1,10 @@
-import { fetchSong } from '~/services/spotify'
 import type { ActionFunction } from '@remix-run/node'
-import { json } from '@remix-run/node'
+import type { SpotifyTrackWithLyrics } from '~/services/spotify-genius-bridge.server'
+
+import { redirect, json } from '@remix-run/node'
 import { Form, useActionData } from '@remix-run/react'
-import { getLyricsForTrack } from '~/services/genius-lyrics'
-import type { SpotifyTrack, SpotifyTrackResponse } from '~/services/spotify'
-
-type Track = SpotifyTrack & { lyrics: string }
-
-const fetchSongAndLyrics = async (trackName: string): Promise<Track | { error: string }> => {
-  const data = await fetchSong(trackName) as SpotifyTrackResponse
-  const spotifyTrack = data.tracks.items[0]
-  const lyrics = await getLyricsForTrack(spotifyTrack.artists[0].name, spotifyTrack.name)
-
-  let track = {...spotifyTrack, lyrics: typeof lyrics === 'string' ? lyrics : '' }
-
-  return track
-}
+import { fetchSongAndLyrics } from '~/services/spotify-genius-bridge.server'
+import { createArtist } from '~/models/artist.server'
 
 export const action: ActionFunction = async ({ request }) => {
   const form = await request.formData()
@@ -31,12 +20,28 @@ export const action: ActionFunction = async ({ request }) => {
 
     return json(null)
   } else {
-    return json(null)
+    const track = form.get('trackInput') as string
+    const artist = form.get('artistInput') as string
+    const lyrics = form.get('lyricsInput') as string
+
+    await createArtist({
+      name: artist,
+      tracks: {
+        create: {
+          name: track,
+          lyrics
+        }
+      }
+    })
+
+    // redirect here if successful
+    return redirect('/songs')
   }
 }
 
 export default function NewSongRoute() {
-  const track = useActionData<Track | null>()
+  const track = useActionData<SpotifyTrackWithLyrics | null>()
+  console.log(track)
 
   return (
     <main>
@@ -60,15 +65,20 @@ export default function NewSongRoute() {
         <Form method='post'>
           <div>
             <p style={{marginBottom: '20px'}}>
-              <span className='bold'>Track:</span> {track?.name}
+              <label htmlFor='trackInput'>Track:</label>
+              <input name='trackInput' type='text' defaultValue={track?.name} />
             </p>
+
             <p style={{marginBottom: '20px'}}>
-              <span className='bold'>Artist:</span> {track?.artists?.[0]?.name}
+              <label htmlFor='artistName'>Artist:</label>
+              <input name='artistInput' type='text' defaultValue={track?.artists?.[0]?.name} />
             </p>
+
             <p style={{marginBottom: '20px'}}>
-              <span className='bold'>Lyrics:</span>{" "}
-              <span dangerouslySetInnerHTML={{__html: track?.lyrics}} />
+              <label htmlFor='lyricsInput'>Lyrics:</label>
+              <input name='lyricsInput' type='text' defaultValue={track?.lyrics} />
             </p>
+
             <button name='formName' value='createSongEntry'>Create Song Entry</button>
           </div>
         </Form>

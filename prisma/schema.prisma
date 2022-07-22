@@ -35,11 +35,11 @@ model Artist {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   name        String
-  songs       Song[]
+  tracks      Track[]
 }
 
-model Song {
-  @@map("songs")
+model Track {
+  @@map("tracks")
 
   id Int      @id @default(autoincrement())
   createdAt   DateTime @default(now())
